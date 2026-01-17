@@ -1,0 +1,18 @@
+qemu-system-x86_64 ^
+  -accel whpx,kernel-irqchip=off ^
+  -machine q35 ^
+  -cpu qemu64,aes=on,avx=on,sse4.1=on,sse4.2=on,ssse3=on,x2apic=on,xsave=on ^
+  -smp 4 ^
+  -m 4G ^
+  -drive file="%~dp0..\..\images\amd_pilotos.qcow2",format=qcow2,if=virtio ^
+  -cdrom "%~dp0..\..\iso\ubuntu-25.10-amd64.iso" ^
+  -boot d ^
+  -device virtio-net-pci,netdev=net0 ^
+  -netdev user,id=net0,hostfwd=tcp:127.0.0.1:2222-:22 ^
+  -device virtio-vga ^
+  -display sdl ^
+  -device usb-ehci,id=usb,bus=pcie.0,addr=0x4 ^
+  -device usb-tablet ^
+  -audiodev sdl,id=snd0 ^
+  -device ich9-intel-hda ^
+  -device hda-output,audiodev=snd0

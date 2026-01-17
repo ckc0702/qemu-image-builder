@@ -1,0 +1,17 @@
+qemu-system-x86_64 ^
+  -accel whpx,kernel-irqchip=off ^
+  -machine q35 ^
+  -cpu qemu64,aes=on,avx=on,sse4.1=on,sse4.2=on,ssse3=on,x2apic=on,xsave=on ^
+  -smp 4 ^
+  -m 4G ^
+  -drive file="%~dp0..\..\images\amd_pilotos.qcow2",format=qcow2,if=virtio ^
+  -device virtio-net-pci,netdev=net0 ^
+  -netdev user,id=net0,hostfwd=tcp:127.0.0.1:2222-:22 ^
+  -device virtio-vga ^
+  -display none ^
+  -spice port=5900,addr=127.0.0.1,disable-ticketing=on,image-compression=off,jpeg-wan-compression=never,zlib-glz-wan-compression=never ^
+  -device usb-ehci,id=usb,bus=pcie.0,addr=0x4 ^
+  -device usb-tablet ^
+  -audiodev sdl,id=snd0 ^
+  -device ich9-intel-hda ^
+  -device hda-output,audiodev=snd0
