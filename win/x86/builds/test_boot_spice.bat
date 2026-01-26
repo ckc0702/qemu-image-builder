@@ -10,7 +10,6 @@ qemu-system-x86_64 ^
   -device virtio-vga ^
   -display none ^
   -spice port=5900,addr=127.0.0.1,disable-ticketing=on,image-compression=off,jpeg-wan-compression=never,zlib-glz-wan-compression=never ^
-  -qmp stdio ^
   -device usb-ehci,id=usb,bus=pcie.0,addr=0x4 ^
   -device usb-tablet ^
   -audiodev sdl,id=snd0 ^
