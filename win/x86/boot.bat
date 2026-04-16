@@ -9,10 +9,14 @@ qemu-system-x86_64 ^
   -netdev user,id=net0,hostfwd=tcp:127.0.0.1:2222-:22 ^
   -device virtio-vga ^
   -display none ^
-  -spice port=5900,addr=127.0.0.1,disable-ticketing=on,image-compression=off,jpeg-wan-compression=never,zlib-glz-wan-compression=never ^
+  -spice port=5900,addr=127.0.0.1,disable-ticketing=on,image-compression=auto_glz,jpeg-wan-compression=auto,zlib-glz-wan-compression=auto,streaming-video=filter,playback-compression=on ^
+  -device virtio-serial ^
+  -chardev spicevmc,id=vdagent,name=vdagent ^
+  -device virtserialport,chardev=vdagent,name=com.redhat.spice.0 ^
   -qmp stdio ^
   -device usb-ehci,id=usb,bus=pcie.0,addr=0x4 ^
   -device usb-tablet ^
   -audiodev sdl,id=snd0 ^
   -device ich9-intel-hda ^
-  -device hda-output,audiodev=snd0
+  -device hda-output,audiodev=snd0 ^
+  -trace spice*
